@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ad agents</title>
+<style>
+  :root { --bg:#faf7f2; --card:#fff; --text:#2b2118; --muted:#76665a; --line:#e6dccf; --accent:#b5562f; --accent-text:#fff; --bad:#b23a3a; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#181411; --card:#221c17; --text:#f1e9df; --muted:#b3a291; --line:#3a3029; --accent:#e58457; --accent-text:#1a120c; --bad:#f19191; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+  main { max-width: 1000px; margin: 0 auto; padding: 28px 16px 64px; }
+  h1 { margin: 0; font-size: 26px; }
+  a { color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-top: 16px; }
+  input[type=password] { width: 100%; max-width: 360px; margin-top: 8px; font: inherit; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
+  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  textarea { width: 100%; min-height: 84px; margin-top: 8px; font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); resize: vertical; }
+  button { font: inherit; font-weight: 600; padding: 9px 18px; border-radius: 8px; border: 0; background: var(--accent); color: var(--accent-text); cursor: pointer; }
+  button.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); font-weight: 500; }
+  button:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+  .muted { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
+  .error { color: var(--bad); }
+  .status { display: flex; gap: 10px; align-items: center; font-weight: 600; }
+  .spinner { width: 16px; height: 16px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .question { background: var(--bg); border-inline-start: 3px solid var(--accent); padding: 10px 14px; border-radius: 6px; margin-top: 12px; white-space: pre-wrap; }
+  .draft { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; margin-top: 16px; }
+  @media (max-width: 720px) { .draft { grid-template-columns: 1fr; } }
+  .draft img { width: 100%; border-radius: 8px; border: 1px solid var(--line); display: block; background: var(--bg); }
+  .headline { font-size: 21px; font-weight: 700; margin: 0 0 10px; }
+  .caption { white-space: pre-wrap; margin: 0 0 12px; }
+  .cta { font-weight: 600; margin: 0 0 8px; }
+  .tags { color: var(--accent); margin: 0; }
+  dl { margin: 16px 0 0; }
+  dt { font-weight: 600; font-size: 13px; color: var(--muted); margin-top: 10px; }
+  dd { margin: 2px 0 0; }
+  dd ul { margin: 0; padding-inline-start: 18px; }
+  .revise { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+  ul.history { list-style: none; padding: 0; margin: 8px 0 0; }
+  ul.history button { width: 100%; text-align: start; background: transparent; color: var(--text); border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 10px 4px; font-weight: 400; }
+  .badge { font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--line); margin-inline-start: 8px; color: var(--muted); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>Ad agents</h1>
+      <p class="muted" id="info">Write what to advertise. The research agent finds one angle, writes the copy and describes the picture; the image model draws it.</p>
+    </div>
+    <button class="secondary" id="logout" hidden>Log out</button>
+  </header>
+
+  <section class="card" id="login" hidden>
+    <form id="login-form">
+      <label for="password"><strong>Password</strong></label>
+      <p class="muted">The APP_PASSWORD set for this service.</p>
+      <input type="password" id="password" autocomplete="current-password" required>
+      <div class="row"><button type="submit">Log in</button></div>
+      <p class="error" id="login-error" hidden></p>
+    </form>
+  </section>
+
+  <div id="app" hidden>
+  <section class="card">
+    <label for="request"><strong>What should the ad be about?</strong></label>
+    <p class="muted">Product, offer, day and branch, in your own words. For example: מודעה ליום שישי: חלות, 2 ב-30, פלורנטין</p>
+    <textarea id="request" dir="auto" maxlength="2000"></textarea>
+    <div class="row"><button id="create">Create ad</button><span class="muted" id="usage"></span></div>
+    <p class="error" id="create-error" hidden></p>
+  </section>
+
+  <section class="card" id="job" hidden>
+    <div class="status" id="status"></div>
+    <p class="muted" dir="auto" id="request-echo"></p>
+    <div class="question" dir="auto" id="question" hidden></div>
+    <p class="error" id="job-error" hidden></p>
+
+    <div class="draft" id="draft" hidden>
+      <div>
+        <img id="picture" alt="The ad picture">
+        <div class="row"><a id="download" download>Download picture</a></div>
+      </div>
+      <div>
+        <!-- dir="auto" on each line: Hebrew copy reads right to left, an English note left to right -->
+        <p class="headline" dir="auto" id="headline"></p>
+        <p class="caption" dir="auto" id="caption"></p>
+        <p class="cta" dir="auto" id="cta"></p>
+        <p class="tags" dir="auto" id="tags"></p>
+        <div class="row"><button class="secondary" id="copy">Copy text</button><span class="muted" id="copied"></span></div>
+        <dl>
+          <dt>Angle</dt><dd dir="auto" id="angle"></dd>
+          <dt>Notes from the agent</dt><dd dir="auto" id="notes"></dd>
+          <dt>Facts used</dt><dd dir="auto" id="facts"></dd>
+          <dt>Sources</dt><dd><ul id="sources"></ul></dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="revise" id="revise" hidden>
+      <label for="reply"><strong id="reply-label">Ask for a change</strong></label>
+      <textarea id="reply" dir="auto" maxlength="2000" placeholder="shorter · make it about the babka · קצר יותר"></textarea>
+      <div class="row">
+        <label><input type="checkbox" id="redraw"> New picture</label>
+        <button id="send">Send</button>
+      </div>
+      <p class="error" id="reply-error" hidden></p>
+    </div>
+  </section>
+
+  <section class="card">
+    <strong>Recent ads</strong>
+    <ul class="history" id="history"></ul>
+  </section>
+  </div>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

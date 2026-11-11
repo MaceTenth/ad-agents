@@ -1,0 +1,25 @@
+{
+  "name": "ad-agents",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Course template: an AI ad research agent (Claude Managed Agents) and an image model behind a small web page, deployable to Railway or DigitalOcean",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node test/brief.mjs && node test/server.mjs",
+    "test:brief": "node test/brief.mjs",
+    "test:server": "node test/server.mjs",
+    "test:ad-live": "node test/ad-live.mjs",
+    "agents:plan": "node scripts/agents.mjs plan",
+    "agents:apply": "node scripts/agents.mjs apply",
+    "agents:ids": "node scripts/agents.mjs ids",
+    "do:spec": "node scripts/do-app-spec.mjs",
+    "deploy:droplet": "deploy/deploy.sh"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.124.0"
+  }
+}

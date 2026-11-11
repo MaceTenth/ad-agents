@@ -1,0 +1,16 @@
+# environments/ad-research.yaml
+# The room the agent works in.
+#
+# Networking is unrestricted because this agent's whole job is open web research.
+# That is acceptable here for three reasons: the agent holds no keys, it reads no
+# private data, and every built-in tool except web_search and web_fetch is off.
+#
+# To tighten it later, switch to "limited" and list the sites you trust in
+# allowed_hosts, and list the same sites in allowed_domains on the two web tools
+# in agents/ad-researcher.md. Under "limited" with no hosts listed, web search
+# returns nothing.
+name: ad-research
+config:
+  type: cloud
+  networking:
+    type: unrestricted

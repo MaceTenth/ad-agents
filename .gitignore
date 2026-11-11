@@ -1,0 +1,12 @@
+node_modules/
+# Secrets: your keys and password live in .env, never in git
+.env
+.env.*
+!.env.example
+# Ads and pictures made while running, and live-test output
+data/
+logs/
+test-output/
+.DS_Store
+# claude-lock.json is NOT ignored on purpose: after `npm run agents:apply`, commit it. It holds your agent and
+# environment IDs (not secrets), and the server in the cloud reads them from it.

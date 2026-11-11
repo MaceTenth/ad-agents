@@ -1,0 +1,8 @@
+# Replaced at setup time: __HOST__ becomes the public hostname. Caddy obtains and renews the TLS certificate itself.
+__HOST__ {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:3000
+    log {
+        output file /var/log/caddy/access.log
+    }
+}

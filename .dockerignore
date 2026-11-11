@@ -1,0 +1,12 @@
+# Never bake secrets or local state into the image. Settings come from the platform's variables.
+.git
+node_modules
+.env
+.env.*
+data
+test-output
+test
+deploy
+scripts
+*.log
+.DS_Store

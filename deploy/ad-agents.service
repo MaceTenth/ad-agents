@@ -1,0 +1,25 @@
+[Unit]
+Description=Ad agents web service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=adagents
+Group=adagents
+WorkingDirectory=/opt/ad-agents
+ExecStart=/usr/bin/node src/server.mjs
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+# Hardening: read-only system, writable only where the app keeps its data and logs
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/ad-agents/data /opt/ad-agents/logs
+StandardOutput=append:/opt/ad-agents/logs/server.log
+StandardError=append:/opt/ad-agents/logs/server.log
+
+[Install]
+WantedBy=multi-user.target
