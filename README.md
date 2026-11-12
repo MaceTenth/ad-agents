@@ -42,10 +42,66 @@ the drafts. The sample business is **Dana's Bakery** ("המאפייה של דנ�
 | | Where |
 |---|---|
 | Node.js 20.12 or newer (22 recommended) | https://nodejs.org |
-| An Anthropic API key with credit | https://platform.claude.com → API keys |
-| An OpenAI API key (or a Gemini key) for the pictures | https://platform.openai.com |
+| An Anthropic API key with credit, for the agent | [Get your API keys](#get-your-api-keys) below |
+| An OpenAI API key or a Google Gemini key, with credit, for the pictures | [Get your API keys](#get-your-api-keys) below |
 | The `ant` CLI, to create the agent from its file | macOS: `brew install anthropics/tap/ant` |
 | GitHub, and a Railway or DigitalOcean account | https://railway.com · https://cloud.digitalocean.com |
+
+## Get your API keys
+
+You need two keys: **Anthropic** for the research agent, and **OpenAI _or_ Google** for the pictures. All three
+providers bill separately from their chat subscriptions (ChatGPT, Claude, Gemini), so each needs its own credit.
+
+Anthropic and OpenAI show a key **only once**, when you create it. Paste each key straight into your `.env` file
+(`cp .env.example .env` first). Never paste it into a chat, a commit or a screenshot.
+
+### Anthropic: the research agent (required) → `ANTHROPIC_API_KEY`
+
+1. Sign in or create an account at the **Claude Console**: https://platform.claude.com
+2. Add credit on the **Billing** page: https://platform.claude.com/settings/billing. Some Claude Max, Ultra and Team
+   plans include monthly API credits that you can claim for a Console organization.
+3. Open the **API keys** page, https://platform.claude.com/settings/keys, and click **Create key**:
+   - Name it, for example `ad-agents`, and choose an expiration.
+   - Set **Linked account** to yourself.
+   - **Select a workspace**, for example the Default Workspace. Don't skip this. A key without a workspace is
+     refused unless every request names one, and this project doesn't send that header. The agent that
+     `npm run agents:apply` creates also lives in this workspace.
+4. Copy the key. It starts with `sk-ant-`. Put it in `.env` as `ANTHROPIC_API_KEY=sk-ant-...`.
+
+Optional: on the **Workspaces** page, https://platform.claude.com/settings/workspaces, create a workspace just for
+this project and give it a spend limit. Then create the key in that workspace.
+
+### OpenAI: the pictures (`IMAGE_PROVIDER=openai`, the default) → `OPENAI_API_KEY`
+
+1. Sign in or create an account at https://platform.openai.com
+2. Add a payment method and credit on the **Billing** page: https://platform.openai.com/account/billing/overview
+3. **Verify your organization**: https://platform.openai.com/settings/organization/general → **Verify
+   Organization**. OpenAI may require this before its image models work. It asks for an ID, and sometimes business
+   details. Do it early, because it can take a while.
+4. Open https://platform.openai.com/api-keys, create a new secret key, and copy it. It starts with `sk-`. Put it in
+   `.env` as `OPENAI_API_KEY=sk-...`.
+
+Optional: set a monthly usage limit in the organization's limits settings.
+
+### Google Gemini: the pictures, instead of OpenAI (`IMAGE_PROVIDER=gemini`) → `GEMINI_API_KEY`
+
+1. Open **Google AI Studio** at https://aistudio.google.com/api-keys and sign in with a Google account. New
+   accounts already have a project and a key. Otherwise click **Create API key**.
+2. **Turn on billing.** The image models are not on the free tier. On the API keys page or the Projects page, click
+   **Set up billing** next to your project, link or create a billing account, and prepay at least $5 (some accounts
+   are offered pay-afterwards instead). Top up later
+   with **Buy credits** on https://aistudio.google.com/billing. A Google AI Pro or Ultra subscription does not cover
+   API use.
+3. Copy the key. It starts with `AIza`. Put it in `.env` as `GEMINI_API_KEY=AIza...`, and set
+   `IMAGE_PROVIDER=gemini`.
+
+The Gemini picture adapter has been tested less than the OpenAI one. If a picture fails, the server log shows
+Google's error.
+
+### In the cloud
+
+Railway and DigitalOcean get the same keys as service variables (section 4). If a key ever leaks, delete it on the
+provider's keys page and create a new one (section 6).
 
 ## 1. Create the agent
 
@@ -55,7 +111,7 @@ The agent is created once, in your Anthropic workspace. Every ad is a new sessio
 git clone <your copy of this repo> ad-agents && cd ad-agents
 npm install
 npm test                  # offline tests: no keys, no cost, a few seconds
-cp .env.example .env      # then fill in APP_PASSWORD, ANTHROPIC_API_KEY and OPENAI_API_KEY
+cp .env.example .env      # then fill in APP_PASSWORD and your keys (see "Get your API keys")
 npm run agents:plan       # shows what would be created: one agent, one environment. Changes nothing.
 npm run agents:apply      # creates them (ant shows the plan again and asks first)
 ```
@@ -203,8 +259,11 @@ npm run test:ad-live   # one real ad: an agent session with web research, plus a
 |---|---|---|
 | The server exits with `APP_PASSWORD is not set` | No password configured | Set `APP_PASSWORD` in `.env` or in the cloud variables |
 | "the agent is not created yet" | No `claude-lock.json` and no IDs | `npm run agents:apply` and commit the lock file, or set `AD_AGENT_ID` / `AD_ENVIRONMENT_ID` |
-| `401` or `authentication_error` from Anthropic | Wrong or missing `ANTHROPIC_API_KEY` | Check the key and the account's credit |
-| `openai images 401` / `429` | Wrong OpenAI key, or its quota | Check the key, billing and limits in the OpenAI console |
+| `401` or `authentication_error` from Anthropic | Wrong, expired or missing `ANTHROPIC_API_KEY` | Check the key and the account's credit |
+| `This API key is not scoped to a workspace` | The Anthropic key was created without a workspace | Create a new key and select a workspace (see "Get your API keys") |
+| `openai images 401` / `429` | Wrong OpenAI key, or no credit or quota left | Check the key, billing and limits in the OpenAI dashboard |
+| `openai images …` mentioning organization verification | The OpenAI organization is not verified | https://platform.openai.com/settings/organization/general → Verify Organization |
+| `gemini images …` about the key, quota or billing | Wrong Gemini key, or billing not set up | Check the key, and **Set up billing** in AI Studio |
 | `spend cap reached` | The session hit `AD_SESSION_BUDGET_CENTS` | Raise it, or ask for something narrower |
 | `no result within 420s` | The agent ran too long | Open the session link from the log in the Claude Console |
 | `daily limit … reached` | `MAX_RUNS_PER_DAY` | Wait, or raise it |
