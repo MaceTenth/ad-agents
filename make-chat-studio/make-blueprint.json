@@ -1,0 +1,624 @@
+{
+  "name": "סטודיו מודעות - צ'אט לאינסטגרם",
+  "metadata": {
+    "version": 1,
+    "instant": true
+  },
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {
+        "hook": null,
+        "maxResults": 1
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0,
+          "name": "קבלת בקשה"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "mapper": null,
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        }
+      },
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 20,
+              "module": "gateway:WebhookRespond",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "status": 200,
+                "body": "<!doctype html>\n<html lang=\"he\" dir=\"rtl\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n<meta name=\"theme-color\" content=\"#f7efeb\">\n<title>סטודיו מודעות</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700;800&display=swap\" rel=\"stylesheet\">\n<style>\n/* Blush paper with burgundy ink, like a printed post series laid on a table; gold only in the candle flame. */\n:root{\n--night:#f7efeb; --night-2:#fbf5f2; --card:#fffaf8; --card-2:#f2e2de;\n--line:rgba(122,46,63,.14); --ink:#2a171c; --muted:#7d6268;\n--gold:#7a2e3f; --gold-2:#9c4357; --flame:#e6a93a; --user:#7a2e3f; --danger:#b3261e; --ok:#2f7d4f;\n--display:'Frank Ruhl Libre',Georgia,serif; --body:'Heebo',system-ui,-apple-system,sans-serif;\ncolor-scheme:light;\n}\n*{box-sizing:border-box}\n[hidden]{display:none!important}\nhtml,body{height:100%;margin:0}\nbody{font-family:var(--body);color:var(--ink);background:var(--night);display:flex;flex-direction:column;\nbackground-image:radial-gradient(ellipse 70% 45% at 85% -10%,rgba(214,150,160,.35),transparent 70%),radial-gradient(ellipse 70% 50% at 0% 110%,rgba(230,190,170,.45),transparent 70%);\nbackground-attachment:fixed}\nbutton,textarea,input{font:inherit;color:inherit}\nbutton{cursor:pointer;border:0;border-radius:12px;font-weight:700;padding:11px 18px;transition:transform .15s ease,background .2s ease,opacity .2s}\nbutton:active{transform:scale(.97)}\nbutton:disabled{opacity:.45;cursor:wait}\n:focus-visible{outline:3px solid var(--gold);outline-offset:2px}\n.stars{display:none;position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 78% 12%,#fff7 50%,transparent 51%),radial-gradient(1.5px 1.5px at 64% 30%,#ffe9b088 50%,transparent 51%),radial-gradient(1px 1px at 30% 8%,#fff6 50%,transparent 51%),radial-gradient(1px 1px at 90% 40%,#fff5 50%,transparent 51%),radial-gradient(1px 1px at 6% 46%,#fff5 50%,transparent 51%)}\nheader{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;\npadding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));\nborder-bottom:1px solid var(--line);background:rgba(247,239,235,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}\n.brand{display:flex;align-items:center;gap:12px}\n.mark{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#9c4357,#5e2130);box-shadow:0 6px 18px rgba(122,46,63,.25)}\n.mark svg{width:16px;height:28px}\n.flame{transform-origin:50% 100%;animation:flick 2.6s ease-in-out infinite}\n@keyframes flick{0%,100%{transform:scale(1) rotate(-1deg)}40%{transform:scale(1.06,.96) rotate(2deg)}70%{transform:scale(.97,1.04) rotate(-2deg)}}\n.brand h1{margin:0;font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:.2px;line-height:1}\n.brand small{display:block;margin-top:4px;color:var(--muted);font-size:13px}\n.brand small b{color:var(--gold);font-weight:500}\n#keybox{display:flex;gap:8px;align-items:center}\n#keybox input{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;width:150px}\n.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}\n.ghost:hover{background:rgba(122,46,63,.06)}\nmain{position:relative;z-index:1;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:16px;\npadding:22px max(16px,env(safe-area-inset-right,0px)) 22px max(16px,env(safe-area-inset-left,0px))}\n.wrap{width:100%;max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}\n.welcome{text-align:center;padding:18px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:14px;animation:rise .6s ease both}\n.show{position:relative;width:100%;max-width:720px;height:250px;overflow:hidden;border-radius:26px;background:linear-gradient(135deg,#ead3cd,#f6e9e4);box-shadow:inset 0 0 0 1px var(--line)}\n.show .tilt{position:absolute;inset:-60px -40px;display:grid;grid-template-columns:repeat(4,150px);gap:18px;justify-content:center;align-content:center;transform:rotate(-14deg)}\n.show img{width:150px;height:188px;object-fit:cover;border-radius:10px;box-shadow:0 14px 30px rgba(94,33,48,.28);background:#e9d5cf}\n.show img:nth-child(even){transform:translateY(40px)}\n.show::after{content:\"\";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(247,239,235,.85));pointer-events:none}\n.show .badge{position:absolute;z-index:2;bottom:14px;right:16px;background:#fff;color:var(--gold);font-weight:700;font-size:13px;border-radius:999px;padding:6px 12px;box-shadow:0 6px 16px rgba(94,33,48,.18)}\n.welcome .big{font-family:var(--display);font-weight:900;font-size:clamp(34px,7vw,52px);line-height:1.05;margin:0;text-wrap:balance}\n.welcome .big em{font-style:normal;color:var(--gold)}\n.welcome p{margin:0;color:var(--muted);font-size:16px;max-width:30em;line-height:1.6}\n.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%;max-width:560px;margin-top:6px}\n.step{background:var(--card);box-shadow:0 4px 14px rgba(122,46,63,.06);border:1px solid var(--line);border-radius:16px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:6px}\n.step .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--night);font-weight:800;font-size:14px}\n.step b{font-size:15px}\n.step span{font-size:12.5px;color:var(--muted);line-height:1.4}\n.ideas-t{margin-top:8px;font-size:13px;color:var(--muted);letter-spacing:.5px}\n.ideas{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:640px}\n.idea{background:var(--card);border:1px solid rgba(122,46,63,.25);color:var(--gold);font-weight:500;border-radius:999px;padding:9px 15px;font-size:14px}\n.idea:hover{background:#f6e6e2}\n.msg{max-width:min(560px,92%);border-radius:18px;line-height:1.6;white-space:pre-wrap;font-size:15px;animation:rise .35s ease both}\n@keyframes rise{from{transform:translateY(10px)}to{transform:none}}\n.me{align-self:flex-start;background:var(--user);color:#fff;padding:12px 15px;border-bottom-right-radius:6px;box-shadow:0 6px 18px rgba(122,46,63,.22)}\n.me img{display:block;width:140px;border-radius:10px;margin-bottom:8px}\n.bot{align-self:flex-end;background:var(--card);border:1px solid var(--line);padding:12px 15px;border-bottom-left-radius:6px}\n.err{color:var(--danger)}\n.note{color:var(--muted);font-size:14px}\n/* Instagram-style preview of the finished ad */\n.post{align-self:flex-end;width:min(440px,100%);background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(122,46,63,.16);animation:rise .45s ease both;white-space:normal}\n.post-h{display:flex;align-items:center;gap:10px;padding:11px 14px}\n.ava{width:34px;height:34px;border-radius:50%;padding:2px;background:conic-gradient(from 200deg,#f9ce34,#ee2a7b,#6228d7,#f9ce34)}\n.ava i{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--night);font-style:normal;font-size:15px}\n.post-h b{font-size:14px}\n.post-h small{display:block;color:var(--muted);font-size:12px}\n.tag{margin-inline-start:auto;font-size:11.5px;color:var(--gold);border:1px solid rgba(122,46,63,.35);border-radius:999px;padding:3px 9px}\n.post img.ad{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--night-2)}\n.post-b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:10px}\n.lbl{font-size:12.5px;color:var(--muted)}\n.post textarea,.fix textarea{width:100%;min-height:140px;resize:vertical;background:var(--night-2);border:1px solid var(--line);border-radius:12px;padding:11px 12px;line-height:1.6;font-size:14.5px}\n.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}\n.pub{background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#fff;box-shadow:0 6px 20px rgba(122,46,63,.28)}\n.pub.confirm{background:linear-gradient(180deg,#d9573b,#b23a22)}\n.soft{background:var(--card-2);color:var(--ink)}\n.soft:hover{background:#ead2cd}\n.link{color:var(--muted);font-size:13.5px;margin-inline-start:auto}\n.done{color:var(--ok);font-weight:700}\n.fix{border-top:1px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px}\n.fix textarea{min-height:76px}\n.scopes{display:flex;flex-wrap:wrap;gap:6px}\n.scopes label{display:flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:14px}\n.scopes input{accent-color:var(--gold);margin:0}\n.scopes label:has(input:checked){border-color:var(--gold);background:#f6e3df;color:var(--gold)}\n.fixsend{align-self:flex-start;background:var(--gold);color:#fff}\n/* waiting state */\n.wait{align-self:flex-end;width:min(440px,100%);background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:12px;animation:rise .35s ease both}\n.shim{aspect-ratio:4/5;border-radius:14px;background:linear-gradient(110deg,#f1e1dc 30%,#fbf1ee 45%,#f1e1dc 60%);background-size:250% 100%;animation:shim 1.6s linear infinite;display:grid;place-items:center}\n.shim svg{width:30px;height:52px;opacity:.9}\n@keyframes shim{to{background-position:-150% 0}}\n.wait .st{color:var(--gold);font-size:14.5px;text-align:center;min-height:1.6em}\nfooter{position:relative;z-index:2;background:rgba(247,239,235,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);\npadding:10px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}\n.chip{max-width:760px;margin:0 auto 8px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 8px;font-size:14px}\n.chip img{width:44px;height:44px;object-fit:cover;border-radius:9px}\n.chip span{flex:1;min-width:0;color:var(--muted)}\n.chip button{padding:6px 11px}\nform{max-width:760px;margin:0 auto;display:flex;align-items:flex-end;gap:8px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:6px}\nform:focus-within{border-color:rgba(122,46,63,.45);box-shadow:0 0 0 4px rgba(122,46,63,.08)}\n#text{flex:1;min-width:0;min-height:44px;max-height:160px;resize:none;background:transparent;border:0;outline:0;padding:11px 8px;font-size:16px;line-height:1.5}\n#text::placeholder{color:#a58e93}\n.attach{background:transparent;font-size:21px;padding:8px 10px;border-radius:16px}\n.attach:hover{background:rgba(122,46,63,.07)}\n#send{width:46px;height:46px;padding:0;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#fff;flex:none}\n#send svg{width:20px;height:20px;transform:scaleX(-1)}\n.gal{max-width:760px;margin:0 auto 10px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 12px 34px rgba(122,46,63,.14);max-height:min(52vh,420px);overflow-y:auto}\n.gal-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}\n.gal-h b{font-family:var(--display);font-size:18px}\n.gal-h button{padding:5px 11px}\n.gal h4{margin:10px 2px 8px;font-size:13px;color:var(--muted);font-weight:500}\n.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}\n.grid button{padding:0;border-radius:12px;overflow:hidden;aspect-ratio:1;background:var(--card-2);border:2px solid transparent}\n.grid button:hover,.grid button:focus-visible{border-color:var(--gold)}\n.grid img{width:100%;height:100%;object-fit:cover;display:block}\n.gal .note{padding:6px 2px}\n.hint2{max-width:760px;margin:6px auto 0;text-align:center;color:#a58e93;font-size:12px}\n@media (max-width:520px){\n.show{height:200px}\n.show .tilt{grid-template-columns:repeat(4,118px);gap:14px}\n.show img{width:118px;height:148px}\n.steps{grid-template-columns:1fr;max-width:340px}\n.step{flex-direction:row;justify-content:flex-start;text-align:right;padding:11px 14px}\n.step span{display:none}\n.brand small{font-size:12px}\n.hint2{display:none}\n}\n@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}\n</style>\n</head>\n<body>\n<div class=\"stars\" aria-hidden=\"true\"></div>\n<header>\n<div class=\"brand\">\n<div class=\"mark\" aria-hidden=\"true\"><svg viewBox=\"0 0 18 30\"><path class=\"flame\" d=\"M9 0C13 6 18 11 18 19a9 9 0 0 1-18 0C0 11 5 6 9 0z\" fill=\"#ffc35c\"/><path class=\"flame\" d=\"M9 12c2 3 4 5 4 8a4 4 0 0 1-8 0c0-3 2-5 4-8z\" fill=\"#fff3d0\"/></svg></div>\n<div><h1>סטודיו מודעות</h1><small>מעצבים ומפרסמים ב-<b><bdi dir=\"ltr\">@ronel_daka_laneshama</bdi></b></small></div>\n</div>\n<div id=\"keybox\"><input id=\"key\" type=\"password\" placeholder=\"קוד גישה\" autocomplete=\"off\" aria-label=\"קוד גישה\"><button class=\"ghost\" id=\"savekey\" type=\"button\">כניסה</button></div>\n</header>\n<main id=\"log\">\n<div class=\"wrap\" id=\"wrap\">\n<section class=\"welcome\" id=\"welcome\">\n<div class=\"show\" aria-label=\"דוגמאות למודעות שנוצרו בסטודיו\"><div class=\"tilt\"><img src=\"https://hcti.io/v1/image/01a1dfa4-b62f-7f66-895c-bfcbaee135c9.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfc2-fa3d-7f94-b2e4-11c997e7ae18.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfd6-2635-7a19-9fa6-91fc19871a1c.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfa4-b62f-7f66-895c-bfcbaee135c9.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfd6-2635-7a19-9fa6-91fc19871a1c.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfc2-fa3d-7f94-b2e4-11c997e7ae18.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfa4-b62f-7f66-895c-bfcbaee135c9.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfc2-fa3d-7f94-b2e4-11c997e7ae18.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfc2-fa3d-7f94-b2e4-11c997e7ae18.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfd6-2635-7a19-9fa6-91fc19871a1c.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfa4-b62f-7f66-895c-bfcbaee135c9.jpg\" alt=\"\" loading=\"lazy\"><img src=\"https://hcti.io/v1/image/01a1dfd6-2635-7a19-9fa6-91fc19871a1c.jpg\" alt=\"\" loading=\"lazy\"></div><span class=\"badge\">מודעות שנוצרו כאן</span></div>\n<h2 class=\"big\">מה <em>נפרסם</em> היום?</h2>\n<p>כותבים במילים פשוטות מה רוצים להגיד, ומקבלים מודעה מעוצבת וטקסט מוכן לאינסטגרם. אפשר לתקן כמה שרוצים לפני שמפרסמים.</p>\n<div class=\"steps\">\n<div class=\"step\"><span class=\"n\">1</span><b>כותבים</b><span>את ההודעה, ואפשר לצרף לינק או תמונה</span></div>\n<div class=\"step\"><span class=\"n\">2</span><b>מקבלים עיצוב</b><span>תמונה וטקסט לפוסט תוך כחצי דקה</span></div>\n<div class=\"step\"><span class=\"n\">3</span><b>מאשרים ומפרסמים</b><span>אחרי תיקונים, בלחיצה אחת</span></div>\n</div>\n<div class=\"ideas-t\">רעיונות להתחלה</div>\n<div class=\"ideas\" id=\"ideas\">\n<button type=\"button\" class=\"idea\">ערב לימוד פתוח לכל המשפחה, יום חמישי ב-20:00, כניסה חופשית</button>\n<button type=\"button\" class=\"idea\">הזמנה להצטרף ללימוד היומי של דקה לנשמה</button>\n<button type=\"button\" class=\"idea\">שבת שלום מכל הצוות, עם משפט חיזוק לשבוע</button>\n<button type=\"button\" class=\"idea\">תודה ענקית למתנדבים שלנו החודש</button>\n</div>\n</section>\n</div>\n</main>\n<footer>\n<div id=\"gal\" class=\"gal\" hidden>\n<div class=\"gal-h\"><b>בחירת תמונה</b><button type=\"button\" class=\"ghost\" id=\"galclose\" aria-label=\"סגירת הגלריה\">✕</button></div>\n<h4>מהאתר של דקה לנשמה</h4>\n<div class=\"grid\" id=\"gsite\"></div>\n<h4>פורסם באינסטגרם</h4>\n<div class=\"grid\" id=\"gig\"><div class=\"note\">טוען את הפוסטים…</div></div>\n</div>\n<div id=\"photochip\" class=\"chip\" hidden><img id=\"photothumb\" alt=\"התמונה שצורפה\"><span>התמונה תשולב במודעה</span><button type=\"button\" id=\"photodel\" class=\"ghost\" aria-label=\"הסרת התמונה\">✕</button></div>\n<form id=\"f\">\n<input id=\"photo\" type=\"file\" accept=\"image/*\" hidden>\n<button id=\"attach\" type=\"button\" class=\"attach\" title=\"צירוף תמונה מהמכשיר\" aria-label=\"צירוף תמונה מהמכשיר\">📷</button>\n<button id=\"galbtn\" type=\"button\" class=\"attach\" title=\"תמונה מהאתר או מהאינסטגרם\" aria-label=\"תמונה מהאתר או מהאינסטגרם\">🖼️</button>\n<textarea id=\"text\" rows=\"1\" placeholder=\"מה ההודעה שתרצו לפרסם?\" aria-label=\"ההודעה לפרסום\" required></textarea>\n<button id=\"send\" type=\"submit\" aria-label=\"שליחה\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>\n</form>\n<div class=\"hint2\">Enter לשליחה · Shift+Enter לשורה חדשה · אפשר להדביק לינק לאתר והתמונה שלו תיכנס למודעה</div>\n</footer>\n<script>\n(function(){\nvar URL_ = location.origin + location.pathname;\nvar log = document.getElementById('log');\nvar wrap = document.getElementById('wrap');\nvar keyEl = document.getElementById('key');\nvar sendBtn = document.getElementById('send');\nvar textEl = document.getElementById('text');\nvar state = { html: '', image: '', history: [], lastTa: null };\nvar photo = { data: '', info: '', isNew: false };\nvar SCOPES = [['both', 'גם וגם'], ['image', 'עיצוב התמונה'], ['text', 'טקסט הפוסט']];\nvar fixCount = 0;\nvar photoIn = document.getElementById('photo');\nvar chip = document.getElementById('photochip');\nvar FLAME = '<svg viewBox=\"0 0 18 30\" aria-hidden=\"true\"><path class=\"flame\" d=\"M9 0C13 6 18 11 18 19a9 9 0 0 1-18 0C0 11 5 6 9 0z\" fill=\"#ffc35c\"/><path class=\"flame\" d=\"M9 12c2 3 4 5 4 8a4 4 0 0 1-8 0c0-3 2-5 4-8z\" fill=\"#fff3d0\"/></svg>';\nfunction scrollEnd(){ log.scrollTop = log.scrollHeight; }\nfunction grow(){ textEl.style.height = 'auto'; textEl.style.height = Math.min(textEl.scrollHeight, 160) + 'px'; }\ntextEl.addEventListener('input', grow);\nfunction hideWelcome(){ var w = document.getElementById('welcome'); if (w) w.remove(); }\nArray.prototype.forEach.call(document.querySelectorAll('.idea'), function(b){\nb.onclick = function(){ textEl.value = b.textContent; grow(); textEl.focus(); };\n});\nfunction setPhoto(data, info){\nphoto = { data: data, info: info, isNew: !!data };\nchip.hidden = !data;\ndocument.getElementById('photothumb').src = data || '';\n}\ndocument.getElementById('attach').onclick = function(){ photoIn.click(); };\ndocument.getElementById('photodel').onclick = function(){ setPhoto('', ''); photoIn.value = ''; };\nphotoIn.onchange = function(){\nvar file = photoIn.files && photoIn.files[0]; if (!file) return;\nvar reader = new FileReader();\nreader.onload = function(){\nvar im = new Image();\nim.onload = function(){\nvar max = 1350, w = im.naturalWidth, h = im.naturalHeight, s = Math.min(1, max / Math.max(w, h));\nvar c = document.createElement('canvas'); c.width = Math.round(w * s); c.height = Math.round(h * s);\nc.getContext('2d').drawImage(im, 0, 0, c.width, c.height);\nvar ratio = w / h;\nvar shape = ratio < 0.9 ? 'לאורך' : ratio > 1.1 ? 'לרוחב' : 'כמעט ריבועית';\nsetPhoto(c.toDataURL('image/jpeg', 0.85), 'צורפה תמונה (כנראה של אנשים). יחס רוחב לגובה ' + ratio.toFixed(2) + ', תמונה ' + shape + '.');\ntextEl.focus();\n};\nim.onerror = function(){ add('bot err', 'לא הצלחתי לקרוא את התמונה. נסו קובץ JPG או PNG.'); };\nim.src = reader.result;\n};\nreader.readAsDataURL(file);\n};\n// gallery: photos from the site + recent Instagram posts\nvar SITE = 'https://ronals-prayer-page.lovable.app/';\nvar SITE_PICS = [1,2,3,4,5,6].map(function(n){ return SITE + 'posts/photo-' + n + '.jpg'; }).concat([SITE + 'venahar-share-v2.jpg']);\nvar gal = document.getElementById('gal'), igLoaded = false;\nfunction pick(url, where){\ngal.hidden = true;\nmeasure(url).then(function(im){\nif (!im) { add('bot err', 'לא הצלחתי לטעון את התמונה הזו. נסו תמונה אחרת.'); return; }\nsetPhoto(url, 'צורפה תמונה ' + where + '. יחס רוחב לגובה ' + (im.naturalWidth / im.naturalHeight).toFixed(2) + '.');\ntextEl.focus();\n});\n}\nfunction thumbs(box, urls, where){\nbox.textContent = '';\nurls.forEach(function(u){\nvar b = el('button'); b.type = 'button'; b.setAttribute('aria-label', 'בחירת התמונה');\nvar i = el('img'); i.src = u; i.alt = ''; i.loading = 'lazy'; b.appendChild(i);\nb.onclick = function(){ pick(u, where); };\nbox.appendChild(b);\n});\n}\nthumbs(document.getElementById('gsite'), SITE_PICS, 'מהאתר של דקה לנשמה');\ndocument.getElementById('galclose').onclick = function(){ gal.hidden = true; };\ndocument.getElementById('galbtn').onclick = function(){\ngal.hidden = !gal.hidden;\nif (gal.hidden || igLoaded) return;\nif (!getKey()) { document.getElementById('gig').innerHTML = '<div class=\"note\">צריך להזין קוד גישה למעלה כדי לראות את הפוסטים.</div>'; return; }\nigLoaded = true;\npost({ action: 'gallery' }).then(function(r){\nvar urls = (r.ok ? r.text : '').split('\\n').map(function(s){ return s.trim(); }).filter(function(s){ return /^https:\\/\\//.test(s); });\nif (!urls.length) { igLoaded = false; document.getElementById('gig').innerHTML = '<div class=\"note\">לא הצלחתי לטעון פוסטים מהאינסטגרם כרגע.</div>'; return; }\nthumbs(document.getElementById('gig'), urls, 'מפוסט שפורסם באינסטגרם');\n}).catch(function(){ igLoaded = false; document.getElementById('gig').innerHTML = '<div class=\"note\">אין חיבור. נסו שוב.</div>'; });\n};\nfunction getKey(){ try { return localStorage.getItem('adkey') || keyEl.value; } catch(e) { return keyEl.value; } }\ntry { if (localStorage.getItem('adkey')) document.getElementById('keybox').hidden = true; } catch(e) {}\ndocument.getElementById('savekey').onclick = function(){\ntry { localStorage.setItem('adkey', keyEl.value); } catch(e) {}\ndocument.getElementById('keybox').hidden = true;\ntextEl.focus();\n};\nfunction el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }\nfunction add(cls, text){ var d = el('div', 'msg ' + cls, text); wrap.appendChild(d); scrollEnd(); return d; }\nfunction post(body){\nbody.key = getKey();\nreturn fetch(URL_, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })\n.then(function(r){ return r.text().then(function(t){ return { ok: r.ok, status: r.status, text: t }; }); });\n}\nvar STEPS = ['קורא את ההודעה', 'בוחר צבעים וגופנים', 'מעצב את הכותרת', 'כותב את הטקסט לפוסט', 'מסדר את הפרטים', 'מלטש את העיצוב', 'כמעט מוכן'];\nfunction waiting(box, first){\nbox.className = 'wait';\nbox.innerHTML = '<div class=\"shim\">' + FLAME + '</div><div class=\"st\"></div>';\nvar st = box.querySelector('.st'), i = 0;\nst.textContent = first || STEPS[0];\nvar t = setInterval(function(){ i = Math.min(i + 1, STEPS.length - 1); st.textContent = STEPS[i]; }, 3200);\nscrollEnd();\nreturn function(){ clearInterval(t); };\n}\nvar busy = false;\nfunction requestDesign(msg, scope, label){\nif (busy) return;\nif (!getKey()) { document.getElementById('keybox').hidden = false; keyEl.focus(); add('bot err', 'צריך להזין קוד גישה למעלה ולהקיש \"כניסה\".'); return; }\nhideWelcome();\nbusy = true; sendBtn.disabled = true;\nvar mine = add('me', label ? label + ': ' + msg : msg);\nvar box = add('wait');\nvar stop = function(){};\nvar link = (scope !== 'text' && !photo.data) ? findLink(msg) : '';\nvar pre = Promise.resolve();\nif (link) {\nstop = waiting(box, 'מחפש תמונה בקישור');\npre = resolveLinkImage(link).then(function(u){ return u ? measure(u) : null; }).then(function(im){\nif (im) {\nsetPhoto(im.src, 'צורפה תמונה מהאתר שבקישור. יחס רוחב לגובה ' + (im.naturalWidth / im.naturalHeight).toFixed(2) + '.');\n} else {\nwrap.insertBefore(el('div', 'msg bot note', 'לא מצאתי תמונה בקישור, אז אעצב בלי תמונה. אפשר לנסות לינק ישיר לתמונה: לחיצה ימנית על התמונה באתר ← \"העתקת כתובת התמונה\".'), box);\n}\nstop();\n});\n}\npre.then(function(){\nvar usePhoto = scope !== 'text' && photo.data;\nif (usePhoto && photo.isNew) { var th = el('img'); th.src = photo.data; th.alt = 'התמונה שצורפה'; mine.insertBefore(th, mine.firstChild); photo.isNew = false; }\nstop = waiting(box, scope === 'text' ? 'מתקן את הטקסט' : state.html ? 'מתקן את העיצוב' : '');\nreturn post({\naction: 'preview', message: msg, scope: state.html ? scope : 'both',\nhistory: state.history.join(' | '), prev_html: state.html, prev_image: state.image,\nprev_caption: state.lastTa ? state.lastTa.value : '',\nphoto: usePhoto ? photo.data : '', photo_info: usePhoto ? photo.info : ''\n}).then(function(r){\nstop(); busy = false; sendBtn.disabled = false;\nvar parts = r.text.split('<<<SPLIT>>>');\nif (!r.ok || parts.length < 3) {\nbox.className = 'msg bot err';\nbox.textContent = r.status === 401 ? 'קוד הגישה שגוי. רעננו את הדף והזינו אותו שוב.' : 'משהו השתבש. נסו שוב. (' + r.text.slice(0, 200) + ')';\nif (r.status === 401) { try { localStorage.removeItem('adkey'); } catch(e) {} }\nreturn;\n}\nstate.history.push(msg); state.html = parts[2]; state.image = parts[0].trim();\nshowAd(box, state.image, parts[1].trim());\n});\n}).catch(function(){ stop(); busy = false; sendBtn.disabled = false; box.className = 'msg bot err'; box.textContent = 'אין חיבור. נסו שוב.'; });\n}\nfunction findLink(msg){\nvar m = msg.match(/https?:\\/\\/[^\\s\"'<>]+/i) || msg.match(/(?:www\\.)?[a-z0-9][a-z0-9-]*(?:\\.[a-z0-9-]+)*\\.(?:co\\.il|org\\.il|net\\.il|gov\\.il|ac\\.il|com|net|org|il|app|io|co|info|me|site|online|store|shop|biz)(?:\\/[^\\s\"'<>]*)?/i);\nif (!m) return '';\nvar u = m[0].replace(/[).,!?:;]+$/, '');\nreturn /^https?:\\/\\//i.test(u) ? u : 'https://' + u;\n}\nfunction resolveLinkImage(link){\nif (/\\.(jpe?g|png|webp|gif|avif)([?#]|$)/i.test(link)) return Promise.resolve(link);\nreturn post({ action: 'linkimage', url: link }).then(function(r){\nvar t = (r.ok ? r.text : '').trim().replace(/&amp;/g, '&');\nif (!t || t.length > 2000 || /[<>\\s]/.test(t)) return '';\ntry { return new URL(t, link).href; } catch(e) { return ''; }\n}).catch(function(){ return ''; });\n}\nfunction measure(url){\nreturn new Promise(function(resolve){\nvar im = new Image(), done = false;\nfunction fin(v){ if (!done) { done = true; resolve(v); } }\nsetTimeout(function(){ fin(null); }, 10000);\nim.onload = function(){ fin(im.naturalWidth > 150 ? im : null); };\nim.onerror = function(){ fin(null); };\nim.src = url;\n});\n}\nfunction showAd(box, img, caption){\nbox.className = 'post'; box.textContent = '';\nvar head = el('div', 'post-h');\nvar ava = el('div', 'ava'); var ai = el('i', '', '🕯️'); ava.appendChild(ai); head.appendChild(ava);\nvar who = el('div'); who.appendChild(el('b', '', 'ronel_daka_laneshama')); who.appendChild(el('small', '', 'כך זה ייראה באינסטגרם')); head.appendChild(who);\nhead.appendChild(el('span', 'tag', 'טיוטה'));\nbox.appendChild(head);\nvar im = el('img', 'ad'); im.src = img; im.alt = 'עיצוב המודעה'; box.appendChild(im);\nvar body = el('div', 'post-b'); box.appendChild(body);\nbody.appendChild(el('div', 'lbl', 'טקסט הפוסט · אפשר לערוך כאן ישירות'));\nvar ta = el('textarea'); ta.value = caption; ta.setAttribute('aria-label', 'טקסט הפוסט'); body.appendChild(ta);\nstate.lastTa = ta;\nvar row = el('div', 'row');\nvar pub = el('button', 'pub', 'פרסום לאינסטגרם'); pub.type = 'button';\nvar fixB = el('button', 'soft', '✏️ תיקון'); fixB.type = 'button';\nvar fresh = el('button', 'soft', '✨ מודעה חדשה'); fresh.type = 'button';\nvar open = el('a', 'link', 'פתיחה בגודל מלא'); open.href = img; open.target = '_blank'; open.rel = 'noopener';\nrow.appendChild(pub); row.appendChild(fixB); row.appendChild(fresh); row.appendChild(open); body.appendChild(row);\nvar n = ++fixCount;\nvar fix = el('div', 'fix'); fix.hidden = true;\nfix.appendChild(el('div', 'lbl', 'מה לתקן?'));\nvar sc = el('div', 'scopes');\nSCOPES.forEach(function(s, i){\nvar lab = el('label'); var r = el('input'); r.type = 'radio'; r.name = 'scope' + n; r.value = s[0]; r.id = 'scope' + n + s[0]; if (i === 0) r.checked = true;\nlab.appendChild(r); lab.appendChild(document.createTextNode(s[1])); sc.appendChild(lab);\n});\nfix.appendChild(sc);\nvar fta = el('textarea'); fta.id = 'fix' + n; fta.placeholder = 'למשל: רקע בהיר יותר · כותרת גדולה יותר · טקסט קצר ופחות רשמי · להוסיף מספר טלפון'; fta.setAttribute('aria-label', 'מה לתקן');\nfix.appendChild(fta);\nvar fsend = el('button', 'fixsend', 'שליחת תיקון'); fsend.type = 'button'; fix.appendChild(fsend);\nbody.appendChild(fix);\nfixB.onclick = function(){ fix.hidden = !fix.hidden; if (!fix.hidden) { fta.focus(); scrollEnd(); } };\nfsend.onclick = function(){\nvar m = fta.value.trim(); if (!m) { fta.focus(); return; }\nif (state.lastTa !== ta) { add('bot err', 'אפשר לתקן רק את הגרסה האחרונה. השתמשו בכפתור התיקון שמתחת למודעה האחרונה.'); return; }\nvar s = fix.querySelector('input:checked').value;\nvar lbl = SCOPES.filter(function(x){ return x[0] === s; })[0][1];\nfix.hidden = true; fta.value = '';\nrequestDesign(m, s, 'תיקון ' + lbl);\n};\nvar armed = false;\npub.onclick = function(){\nif (!armed) { armed = true; pub.classList.add('confirm'); pub.textContent = 'בטוח? לחצו שוב לפרסום'; return; }\npub.disabled = true; pub.textContent = 'מפרסם…';\npost({ action: 'publish', image_url: img, caption: ta.value }).then(function(r){\nif (r.ok && r.text.indexOf('ok') === 0) { row.innerHTML = '<span class=\"done\">✓ פורסם באינסטגרם</span>'; fix.hidden = true; box.querySelector('.tag').textContent = 'פורסם'; }\nelse { pub.disabled = false; armed = false; pub.classList.remove('confirm'); pub.textContent = 'פרסום לאינסטגרם'; add('bot err', 'הפרסום לא הצליח: ' + (r.status === 401 ? 'קוד הגישה שגוי.' : r.text.slice(0, 300))); }\n}).catch(function(){ pub.disabled = false; armed = false; pub.classList.remove('confirm'); pub.textContent = 'פרסום לאינסטגרם'; add('bot err', 'אין חיבור. נסו שוב.'); });\n};\nfresh.onclick = function(){ state = { html: '', image: '', history: [], lastTa: null }; setPhoto('', ''); photoIn.value = ''; add('bot', 'מתחילים מודעה חדשה. מה ההודעה?'); textEl.focus(); };\nscrollEnd();\n}\ndocument.getElementById('f').onsubmit = function(e){\ne.preventDefault();\nvar msg = textEl.value.trim(); if (!msg || busy) return;\ntextEl.value = ''; grow();\nrequestDesign(msg, 'both', '');\n};\ntextEl.addEventListener('keydown', function(e){\nif (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); document.getElementById('f').requestSubmit(); }\n});\n})();\n</script>\n</body>\n</html>",
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/html; charset=utf-8"
+                  }
+                ]
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": -450,
+                  "name": "דף הצ'אט"
+                }
+              },
+              "filter": {
+                "name": "פתיחת הדף (GET)",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.`__IMTMETHOD__`}}",
+                      "o": "text:equal:ci",
+                      "b": "GET"
+                    }
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 21,
+              "module": "gateway:WebhookRespond",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "status": 401,
+                "body": "unauthorized",
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ]
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": -150,
+                  "name": "קוד שגוי"
+                }
+              },
+              "filter": {
+                "name": "קוד גישה שגוי",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.`__IMTMETHOD__`}}",
+                      "o": "text:notequal:ci",
+                      "b": "GET"
+                    },
+                    {
+                      "a": "{{1.key}}",
+                      "o": "text:notequal",
+                      "b": "YOUR_ACCESS_CODE"
+                    }
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 3,
+              "module": "anthropic-claude:createAMessage",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": null
+              },
+              "filter": {
+                "name": "יצירת עיצוב",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.action}}",
+                      "o": "text:equal",
+                      "b": "preview"
+                    },
+                    {
+                      "a": "{{1.key}}",
+                      "o": "text:equal",
+                      "b": "YOUR_ACCESS_CODE"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "model": "claude-sonnet-5-5",
+                "effort": "low",
+                "max_tokens": 9000,
+                "messages": [
+                  {
+                    "role": "user",
+                    "inputType": "single",
+                    "content": "אתה מעצב גרפי וקופירייטר בכיר שיוצר מודעות לאינסטגרם בעברית.\n\nהבקשה הנוכחית של המשתמשת:\n<request>{{1.message}}</request>\n\nבקשות קודמות בשיחה הזו (ריק אם זו ההתחלה):\n<history>{{1.history}}</history>\n\nהעיצוב הקודם (ריק = מודעה חדשה). אם יש עיצוב קודם, הבקשה היא תיקון: שנה רק את מה שהתבקש ושמור על כל השאר בדיוק כמו שהוא:\n<previous_html>{{1.prev_html}}</previous_html>\n\nטקסט הפוסט הנוכחי (ייתכן שהמשתמשת ערכה אותו בעצמה, אז זו הגרסה הקובעת):\n<previous_caption>{{1.prev_caption}}</previous_caption>\n\nמה לתקן הפעם: {{ifempty(1.scope; \"both\")}}\n- both: מודעה חדשה, או תיקון שיכול לגעת גם בעיצוב וגם בטקסט.\n- image: לתקן רק את עיצוב התמונה. את טקסט הפוסט להחזיר מילה במילה כמו ב-previous_caption.\n- text: לתקן רק את טקסט הפוסט, על בסיס previous_caption. במקום ה-HTML לכתוב רק את המילה SAME.\n\nצור:\n1. עיצוב מודעה כ-HTML אחד שלם, שיצולם כתמונה בגודל 1080x1350 פיקסלים.\n2. טקסט לפוסט באינסטגרם.\n\nכללי העיצוב:\n- כל המודעה בתוך <div class=\"ad\" dir=\"rtl\"> אחד, ברוחב 1080px ובגובה 1350px בדיוק, עם overflow:hidden ו-position:relative. כל ה-CSS בתגית <style> אחת לפני ה-div, כולל html,body{margin:0;padding:0;width:1080px;height:1350px}.\n- גופנים רק מ-Google Fonts עם תמיכה בעברית, דרך @import בשורה הראשונה של ה-style: Heebo, Rubik, Assistant, Secular One, Suez One, Frank Ruhl Libre, Karantina, Amatic SC, Varela Round, Bellefair, Noto Serif Hebrew. בחר זוג שמתאים לאופי ההודעה.\n- תמונה מצורפת: <photo>{{1.photo_info}}</photo>\n  אם יש כאן תמונה, חובה לשלב אותה בעיצוב כרכיב מרכזי, עם התגית <img src=\"PHOTO_URL\" alt=\"\"> בדיוק כך (המחרוזת PHOTO_URL תוחלף אוטומטית בתמונה האמיתית, אל תשנה אותה). אתה לא רואה את התמונה, אז: שים אותה במסגרת גדולה (לפחות 45% מגובה המודעה) או כרקע מלא, עם object-fit:cover ו-object-position:center 30% כדי שהפנים יישארו בפריים. אל תכתוב טקסט על אזור הפנים. אם הטקסט עולה על התמונה, הוסף שכבת גרדיאנט כהה מתחת לטקסט כדי שיהיה קריא. התאם את צורת המסגרת ליחס של התמונה.\n  אם בבקשה יש קישור לאתר, הוא שימש רק להבאת התמונה: אל תכתוב את כתובת הקישור על התמונה.\n  אם התגית ריקה אבל בעיצוב הקודם יש PHOTO_URL, המשתמשת הסירה את התמונה: הוצא אותה מהעיצוב.\n- בלי תמונות חיצוניות אחרות, אלא אם המשתמשת נתנה קישור לתמונה בבקשה. את האווירה בונים עם צבע, גרדיאנטים, צורות, SVG פשוט בתוך הקוד, טיפוגרפיה גדולה ואימוג'י במשורה.\n- היררכיה ברורה: כותרת ראשית גדולה (70–140px) שנקראת ממרחק, שורת משנה, לכל היותר 2–3 פרטים קצרים (תאריך, מחיר, מקום) ו-CTA בולט. עד כ-30 מילים על התמונה.\n- ניגודיות גבוהה, שוליים פנימיים של 70px לפחות, ששום טקסט לא ייחתך ולא יצא מהמסגרת. text-wrap:balance בכותרות.\n- סגנון שמתאים לנושא (חגיגי, יוקרתי, רגוע, אנרגטי, רוחני...). כל מודעה חדשה בפלטה ובקומפוזיציה אחרת, לא תבנית קבועה.\n- אל תמציא עובדות: מחירים, תאריכים, כתובות, טלפונים ושמות מופיעים רק אם הם בבקשה.\n- בלי JavaScript.\n\nכללי הטקסט לפוסט:\n- עברית טבעית וחמה, 300–900 תווים: שורת פתיחה תופסת, פסקה קצרה עם העיקר, קריאה לפעולה, 2–4 אימוג'י, ואז שורה ריקה ו-4–8 האשטגים בעברית.\n- בלי מרקדאון ובלי להמציא פרטים.\n\nהחזר בדיוק בפורמט הזה, בלי שום טקסט לפני או אחרי:\n===CAPTION===\n(טקסט הפוסט)\n===HTML===\n(ה-HTML המלא)\n===END===\n"
+                  }
+                ]
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": 150,
+                  "name": "Claude מעצב וכותב"
+                }
+              }
+            },
+            {
+              "id": 10,
+              "module": "util:SetVariable2",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "name": "t",
+                "scope": "roundtrip",
+                "value": "{{first(map(3.content; \"text\"; \"type\"; \"text\"))}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 900,
+                  "y": 150,
+                  "name": "התשובה"
+                }
+              }
+            },
+            {
+              "id": 4,
+              "module": "util:SetVariables",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "scope": "roundtrip",
+                "variables": [
+                  {
+                    "name": "caption",
+                    "value": "{{trim(substring(10.t; indexOf(10.t; \"===CAPTION===\") + 13; indexOf(10.t; \"===HTML===\")))}}"
+                  },
+                  {
+                    "name": "html",
+                    "value": "{{trim(substring(10.t; indexOf(10.t; \"===HTML===\") + 10; indexOf(10.t; \"===END===\")))}}"
+                  }
+                ]
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 150,
+                  "name": "פירוק לטקסט ועיצוב"
+                }
+              }
+            },
+            {
+              "id": 30,
+              "module": "builtin:BasicRouter",
+              "version": 1,
+              "mapper": null,
+              "metadata": {
+                "designer": {
+                  "x": 1500,
+                  "y": 150
+                }
+              },
+              "routes": [
+                {
+                  "flow": [
+                    {
+                      "id": 31,
+                      "module": "gateway:WebhookRespond",
+                      "version": 1,
+                      "parameters": {},
+                      "mapper": {
+                        "status": 200,
+                        "body": "{{1.prev_image}}<<<SPLIT>>>{{4.caption}}<<<SPLIT>>>{{1.prev_html}}",
+                        "headers": [
+                          {
+                            "key": "Content-Type",
+                            "value": "text/plain; charset=utf-8"
+                          }
+                        ]
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1800,
+                          "y": 0,
+                          "name": "תיקון טקסט בלבד: אותה תמונה"
+                        }
+                      },
+                      "filter": {
+                        "name": "תיקון טקסט בלבד",
+                        "conditions": [
+                          [
+                            {
+                              "a": "{{1.scope}}",
+                              "o": "text:equal",
+                              "b": "text"
+                            },
+                            {
+                              "a": "{{1.prev_image}}",
+                              "o": "text:startwith",
+                              "b": "https://hcti.io/"
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "flow": [
+                    {
+                      "id": 5,
+                      "filter": {
+                        "name": "צריך תמונה חדשה",
+                        "conditions": [
+                          [
+                            {
+                              "a": "{{1.scope}}",
+                              "o": "text:notequal",
+                              "b": "text"
+                            }
+                          ]
+                        ]
+                      },
+                      "module": "http:MakeRequest",
+                      "version": 4,
+                      "parameters": {
+                        "authenticationType": "basicAuthConnection",
+                        "basicAuthAccount": null
+                      },
+                      "mapper": {
+                        "url": "https://hcti.io/v1/image",
+                        "method": "post",
+                        "timeout": 60,
+                        "contentType": "urlEncoded",
+                        "shareCookies": false,
+                        "parseResponse": true,
+                        "allowRedirects": true,
+                        "stopOnHttpError": true,
+                        "requestCompressedContent": true,
+                        "urlEncodedBodyContent": [
+                          {
+                            "name": "html",
+                            "value": "{{replace(4.html; \"PHOTO_URL\"; 1.photo)}}"
+                          },
+                          {
+                            "name": "selector",
+                            "value": ".ad"
+                          },
+                          {
+                            "name": "viewport_width",
+                            "value": "1080"
+                          },
+                          {
+                            "name": "viewport_height",
+                            "value": "1350"
+                          },
+                          {
+                            "name": "device_scale",
+                            "value": "1"
+                          },
+                          {
+                            "name": "ms_delay",
+                            "value": "1500"
+                          }
+                        ]
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 1800,
+                          "y": 300,
+                          "name": "הפיכת העיצוב לתמונה"
+                        }
+                      }
+                    },
+                    {
+                      "id": 6,
+                      "module": "gateway:WebhookRespond",
+                      "version": 1,
+                      "parameters": {},
+                      "mapper": {
+                        "status": 200,
+                        "body": "{{5.data.url}}.jpg<<<SPLIT>>>{{4.caption}}<<<SPLIT>>>{{4.html}}",
+                        "headers": [
+                          {
+                            "key": "Content-Type",
+                            "value": "text/plain; charset=utf-8"
+                          }
+                        ]
+                      },
+                      "metadata": {
+                        "designer": {
+                          "x": 2100,
+                          "y": 300,
+                          "name": "החזרת העיצוב לצ'אט"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 40,
+              "module": "http:MakeRequest",
+              "version": 4,
+              "parameters": {
+                "authenticationType": "noAuth"
+              },
+              "filter": {
+                "name": "חיפוש תמונה בקישור",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.action}}",
+                      "o": "text:equal",
+                      "b": "linkimage"
+                    },
+                    {
+                      "a": "{{1.key}}",
+                      "o": "text:equal",
+                      "b": "YOUR_ACCESS_CODE"
+                    },
+                    {
+                      "a": "{{1.url}}",
+                      "o": "text:startwith",
+                      "b": "http"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "url": "{{1.url}}",
+                "method": "get",
+                "timeout": 20,
+                "contentType": "",
+                "shareCookies": false,
+                "parseResponse": false,
+                "allowRedirects": true,
+                "stopOnHttpError": false,
+                "requestCompressedContent": true,
+                "headers": [
+                  {
+                    "name": "User-Agent",
+                    "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+                  },
+                  {
+                    "name": "Accept",
+                    "value": "text/html,application/xhtml+xml"
+                  }
+                ]
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": 750,
+                  "name": "קריאת הדף מהקישור"
+                }
+              }
+            },
+            {
+              "id": 41,
+              "module": "regexp:Parser",
+              "version": 1,
+              "parameters": {
+                "pattern": "<meta(?=[^>]*(?:property|name)\\s*=\\s*[\"'](?:og:image(?::secure_url|:url)?|twitter:image(?::src)?)[\"'])[^>]*?content\\s*=\\s*[\"'](?<img>[^\"']+)[\"']|<img\\b[^>]*?\\s(?:data-src|src)\\s*=\\s*[\"'](?<img2>[^\"']+?\\.(?:jpe?g|png|webp)(?:\\?[^\"']*)?)[\"']",
+                "global": false,
+                "sensitive": false,
+                "multiline": false,
+                "singleline": false,
+                "continueWhenNoRes": true
+              },
+              "mapper": {
+                "text": "{{substring(toString(40.data); 0; 400000)}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 900,
+                  "y": 750,
+                  "name": "מציאת התמונה הראשית"
+                }
+              }
+            },
+            {
+              "id": 42,
+              "module": "gateway:WebhookRespond",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "status": 200,
+                "body": "{{ifempty(41.img; 41.img2)}}",
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ]
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 750,
+                  "name": "החזרת קישור התמונה"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 50,
+              "module": "instagram-business:GetUserMedia",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": null
+              },
+              "filter": {
+                "name": "גלריית אינסטגרם",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.action}}",
+                      "o": "text:equal",
+                      "b": "gallery"
+                    },
+                    {
+                      "a": "{{1.key}}",
+                      "o": "text:equal",
+                      "b": "YOUR_ACCESS_CODE"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "accountId": "YOUR_INSTAGRAM_ACCOUNT_ID",
+                "limit": 18
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": 1050,
+                  "name": "הפוסטים האחרונים באינסטגרם"
+                }
+              }
+            },
+            {
+              "id": 51,
+              "module": "util:TextAggregator",
+              "version": 1,
+              "parameters": {
+                "feeder": 50,
+                "rowSeparator": "\n"
+              },
+              "mapper": {
+                "value": "{{ifempty(50.thumbnail_url; 50.media_url)}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 900,
+                  "y": 1050,
+                  "name": "רשימת תמונות"
+                }
+              }
+            },
+            {
+              "id": 52,
+              "module": "gateway:WebhookRespond",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "status": 200,
+                "body": "{{51.text}}",
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ]
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 1050,
+                  "name": "החזרת הגלריה"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 7,
+              "module": "instagram-business:CreatePostPhoto",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": null
+              },
+              "filter": {
+                "name": "פרסום",
+                "conditions": [
+                  [
+                    {
+                      "a": "{{1.action}}",
+                      "o": "text:equal",
+                      "b": "publish"
+                    },
+                    {
+                      "a": "{{1.key}}",
+                      "o": "text:equal",
+                      "b": "YOUR_ACCESS_CODE"
+                    },
+                    {
+                      "a": "{{1.image_url}}",
+                      "o": "text:startwith",
+                      "b": "https://hcti.io/"
+                    }
+                  ]
+                ]
+              },
+              "mapper": {
+                "accountId": "YOUR_INSTAGRAM_ACCOUNT_ID",
+                "image_url": "{{1.image_url}}",
+                "caption": "{{1.caption}}"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 600,
+                  "y": 450,
+                  "name": "פרסום באינסטגרם"
+                }
+              }
+            },
+            {
+              "id": 8,
+              "module": "gateway:WebhookRespond",
+              "version": 1,
+              "parameters": {},
+              "mapper": {
+                "status": 200,
+                "body": "ok:{{7.id}}",
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ]
+              },
+              "metadata": {
+                "designer": {
+                  "x": 900,
+                  "y": 450,
+                  "name": "אישור פרסום"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
