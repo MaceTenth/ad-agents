@@ -12,6 +12,22 @@
    gallery   → Instagram: List posts → רשימת תמונות לגלריה
 ```
 
+## דוגמאות
+
+<p>
+<img src="examples/chat-welcome.jpg" width="49%" alt="מסך הפתיחה של הצ'אט">
+<img src="examples/chat-ad-preview.jpg" width="49%" alt="מודעה מוכנה בתצוגה כמו פוסט באינסטגרם">
+</p>
+
+מודעות אמיתיות שהצ'אט יצר (כל אחת תוך 10–15 שניות):
+
+| הבקשה | התוצאה |
+|---|---|
+| "ערב לימוד פתוח לכל המשפחה לזכר חיילי צה"ל, יום חמישי 20:00, כניסה חופשית" | <img src="examples/1-evening-study.jpg" width="220"> |
+| ✏️ תיקון עיצוב בלבד: "רקע בורדו חם במקום כחול". רק הרקע השתנה, הטקסט נשאר מילה במילה | <img src="examples/2-fix-burgundy-background.jpg" width="220"> |
+| הודעה עם לינק לאתר. התמונה הראשית של הדף נכנסה למודעה | <img src="examples/3-image-from-site-link.jpg" width="220"> |
+| תמונה שנבחרה מהגלריה (🖼️) מהאתר | <img src="examples/4-photo-from-gallery.jpg" width="220"> |
+
 ## מה יש בצ'אט
 
 - **עיצוב מודעה** בגודל 1080×1350, בכל פעם בסגנון אחר שמתאים להודעה.
